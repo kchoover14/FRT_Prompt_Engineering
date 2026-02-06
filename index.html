@@ -126,14 +126,30 @@ window.Quarto = {
 <p><strong>Background:</strong> Biometric systems require real-time quality decisions (pass/fail/retry). Traditional rule-based systems struggle with environmental edge cases and cannot provide natural language remediation. An LLM-based approach offers multimodal reasoning across RGB/IR sensors and generates adaptive user instructions.</p>
 <p><strong>Goal:</strong> Evaluate LLM effectiveness in classifying biometric telemetry and generating structured remediation logic.</p>
 <p><strong>Approach:</strong> Developed a framework using <strong>AWS Bedrock</strong> to test <strong>Amazon Nova Lite</strong> and <strong>Claude 4.5 Opus</strong>. I utilized few-shot prompting and systematic parameter sweeps (<span class="math inline">\(Temperature\)</span>, <span class="math inline">\(Top-K\)</span>, <span class="math inline">\(Top-P\)</span>) to optimize for JSON compliance and decision accuracy.</p>
-<p><strong>Results:</strong> * <strong>Reliability:</strong> 100% JSON schema compliance. * <strong>Optimization:</strong> <span class="math inline">\(Temp = 0\)</span> proved best for deterministic audit logs; <span class="math inline">\(Temp = 1\)</span> enabled nuanced user-facing instructions. * <strong>Safety:</strong> Low <span class="math inline">\(Top-K\)</span> (10–20) acted as a critical rail against hallucinations.</p>
+<p><strong>Results:</strong></p>
+<ul>
+<li><p><strong>Reliability:</strong> 100% JSON schema compliance.</p></li>
+<li><p><strong>Optimization:</strong></p>
+<ul>
+<li><p><span class="math inline">\(Temp = 0\)</span> proved best for deterministic audit logs.</p></li>
+<li><p><span class="math inline">\(Temp = 1\)</span> enabled nuanced user-facing instructions.</p></li>
+</ul></li>
+<li><p><strong>Safety:</strong> Low <span class="math inline">\(Top-K\)</span> (10–20) acted as a critical rail against hallucinations.</p></li>
+</ul>
 <hr>
 </section>
 <section id="what-i-built" class="level2">
 <h2 class="anchored" data-anchor-id="what-i-built">What I Built</h2>
 <section id="system-architecture" class="level3">
 <h3 class="anchored" data-anchor-id="system-architecture">System Architecture</h3>
-<p>The pipeline orchestrates biometric data from ingestion to structured audit: 1. <strong>Biometric Sensor Logs:</strong> (RGB + IR confidence scores). 2. <strong>AWS Lambda:</strong> Orchestrates the request. 3. <strong>AWS Bedrock:</strong> Processed by Nova Lite or Claude 4.5 Opus. 4. <strong>Structured JSON:</strong> Decision (Pass/Fail/Retry) + Reasoning + Remediation. 5. <strong>RDS Audit Log:</strong> Long-term storage of decision traces.</p>
+<p>The pipeline orchestrates biometric data from ingestion to structured audit:</p>
+<ol type="1">
+<li><p><strong>Biometric Sensor Logs:</strong> (RGB + IR confidence scores).</p></li>
+<li><p><strong>AWS Lambda:</strong> Orchestrates the request.</p></li>
+<li><p><strong>AWS Bedrock:</strong> Processed by Nova Lite or Claude 4.5 Opus.</p></li>
+<li><p><strong>Structured JSON:</strong> Decision (Pass/Fail/Retry) + Reasoning + Remediation.</p></li>
+<li><p><strong>RDS Audit Log:</strong> Long-term storage of decision traces.</p></li>
+</ol>
 </section>
 <section id="prompt-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="prompt-strategy">Prompt Strategy</h3>
